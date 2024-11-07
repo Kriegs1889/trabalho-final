@@ -1,7 +1,7 @@
 ### Inicalização
 
 - Abra o VS Code
-- Clone este repositório do github (coloque aqui o link entre `` se quiser)
+- Clone este repositório do github 
 - Abra o terminal do VS Code e rode os seguintes comando:
 
 ```
