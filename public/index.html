@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="assets/login.css">
+</head>
+
+<body>
+
+  <div class="info">
+    <h1>Não é um site do McDonald's, ok?</h1>
+    <p>manisfesto gastronômico</p>
+    <p>
+    Camaradas, o McDonald's não é mais o refúgio dos imperialistas da carne! Não mais será o lugar de luxo para a burguesia que se esbalda em seus Big Macs e
+    milkshakes caros! O McDonald's agora será uma utopia socialista! Um lugar onde os ricos não terão mais o direito de dominar as batatas fritas e os hambúrgueres!
+    Onde o hambúrguer será um símbolo de igualdade proletária! Onde a comida será controlada pelo povo, para o povo!
+ 
+   <br> Chega de exploração dos trabalhadores da cozinha, dos operários da caixa e dos atendentes! Todos eles, trabalhadores da fritadeira e da chapa, serão unidos sob 
+    uma única bandeira, a bandeira do McDonald's Socialista! Não mais seremos controlados por grandes corporações que ditam o preço do hambúrguer e o tamanho das 
+    fritas! A partir de agora, camaradas, o preço da comida será regulado pela revolução! Não mais lucro, mas igualdade alimentar para todos!
+    </p>
+
+  </div>
+
+  <div class="login-form">
+    <form>
+      <div>
+        <label>Email</label>
+        <input type="text" name="email" placeholder="Digite seu email">
+      </div>
+      <div>
+        <label>Senha</label>
+        <input type="password" name="password" placeholder="Digite sua senha">
+      </div>
+      <div>
+        <button type="submit" class="unelevated">recuperar Senha</button>
+        <button type="submit" class="unelevated" id="btRegister">cadastra-se</button>
+        <button type="submit" class="mcDonald">Entrar</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    const form = document.querySelector('form')
+    form.addEventListener('submit', e => e.preventDefault())
+    form.btRegister.addEventListener('click', () => window.location.href = 'registrar.html')
+        
+
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      
+      if (form.email.value.trim() === ''
+        || form.password.value.trim() === ''
+      )
+        return alert('Preencha todos os campos, seu jumento')
+
+      const url = '/token'
+      const method = 'POST'
+      const headers = { 'Content-Type': 'application/json' }
+      const body = JSON.stringify({
+        email: form.email.value,
+        password: form.password.value
+      })
+
+      const response = await fetch(url, { method, headers, body })
+      const dataResponse = await response.json()
+
+      if (!response.ok) {
+        console.error(dataResponse)
+        return alert('Erro de servidor ao logar usuário, maiores detalhes no console!')
+      }
+
+      localStorage.setItem("token", dataResponse.token)
+
+      
+      alert('Usuário logado com sucesso!')
+      window.location.href = 'registrar.html'
+    })
+  </script>
+</body>
+
+</html>
